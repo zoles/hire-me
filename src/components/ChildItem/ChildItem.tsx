@@ -1,3 +1,10 @@
+import {
+  Avatar,
+  Box,
+  ButtonOutline,
+  ButtonPrimary,
+  TextInput,
+} from "@primer/components";
 import { useContext, useRef } from "react";
 import { Child } from "../../models/Child";
 import { ChildrenContext } from "../../store/children-context";
@@ -22,27 +29,44 @@ const ChildItem: React.FC<{ item: Child }> = (props) => {
     childrenCtx.toggleCheckin(props.item);
   };
 
+  const formatPickupTime = (dateTime: string, isCheckedIn: boolean): string => {
+    if (!dateTime || !isCheckedIn) return "";
+
+    const convertedDate = new Date(props.item.pickupTime);
+    return convertedDate.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+      timeZone: "UTC",
+    });
+  };
+
   return (
-    <div>
-      <img src={props.item.image.small} alt="Child" />
-      <span>{props.item.name.fullName}</span>
-      <span>{props.item.checkedIn}</span>
-      <span>
+    <Box display="grid" gridTemplateColumns="50px 1fr 1fr 1fr" gridGap={3}>
+      <Box p={2}>
+        <Avatar src={props.item.image.small} size={50} />
+      </Box>
+      <Box p={3}>{props.item.name.fullName}</Box>
+      <Box p={3}>
+        {formatPickupTime(props.item.pickupTime, props.item.checkedIn)}
+      </Box>
+      <Box p={3}>
         {props.item.checkedIn ? (
-          <button onClick={onCheckoutHandler}>Checkout</button>
+          <ButtonOutline onClick={onCheckoutHandler}>Checkout</ButtonOutline>
         ) : (
           <div>
-            <input
-              type="text"
+            <TextInput
+              aria-label="PickupTime"
               name="pickupTime"
+              variant="small"
               placeholder="Pickup time"
               ref={pickupTimeInputRef}
+              sx={{ mr: 2 }}
             />
-            <button onClick={onCheckinHandler}>Checkin</button>
+            <ButtonPrimary onClick={onCheckinHandler}>Checkin</ButtonPrimary>
           </div>
         )}
-      </span>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
