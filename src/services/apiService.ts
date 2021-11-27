@@ -15,4 +15,26 @@ export default class ChildrenService {
       },
     });
   };
+
+  checkInChildApi = (
+    childId: string,
+    pickupTime: string
+  ): Promise<AxiosResponse<any, any>> => {
+    return axios.post(
+      `https://app.famly.co/api/v2/children/${childId}/checkins`,
+      {
+        accessToken: process.env.REACT_APP_ACCESS_TOKEN,
+        pickupTime,
+      }
+    );
+  };
+
+  checkOutChildApi = (childId: string): Promise<AxiosResponse<any, any>> => {
+    return axios.post(
+      `https://app.famly.co/api/v2/children/${childId}/checkout`,
+      {
+        accessToken: process.env.REACT_APP_ACCESS_TOKEN,
+      }
+    );
+  };
 }
