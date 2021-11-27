@@ -1,4 +1,4 @@
-import { Box } from "@primer/components";
+import { Box, Pagination } from "@primer/components";
 import { useContext } from "react";
 import { ChildrenContext } from "../../store/children-context";
 import ChildItem from "../ChildItem/ChildItem";
@@ -16,6 +16,7 @@ const ChildrenList: React.FC = () => {
           <p>
             {childrenCtx.totalItems} children
             <br />
+            {childrenCtx.currentPage} / {childrenCtx.pageCount} pages
           </p>
         </Box>
       </Box>
@@ -44,10 +45,18 @@ const ChildrenList: React.FC = () => {
           <Box p={3}>Action</Box>
         </Box>
         {/* Children */}
-        {childrenCtx.items.map((item) => (
+        {childrenCtx.loadedItems.map((item) => (
           <ChildItem key={item.childId} item={item} />
         ))}
       </Box>
+
+      {childrenCtx.pageCount > 0 && (
+        <Pagination
+          pageCount={childrenCtx.pageCount}
+          currentPage={childrenCtx.currentPage}
+          onPageChange={childrenCtx.pageChange}
+        />
+      )}
     </div>
   );
 };
