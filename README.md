@@ -1,4 +1,4 @@
-# React demo app &middot; [![Demo App CI](https://github.com/zoles/hire-me/actions/workflows/ci.yml/badge.svg)](https://github.com/zoles/hire-me/actions/workflows/ci.yml)
+# React demo app &middot; [![Demo App CI](https://github.com/zoles/hire-me/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/zoles/hire-me/actions/workflows/ci.yml)
 
 A simple React app to display a list of children in a table with pagination and perform Checkin and Checkout operations of the records using the given API endpoints.
 
